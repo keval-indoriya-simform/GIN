@@ -13,28 +13,28 @@ type VideoController interface {
 	ShowAll(context *gin.Context)
 }
 
-type Controller struct {
+type controller struct {
 	service service.VideoService
 }
 
 func New(service service.VideoService) VideoController {
-	return &Controller{
+	return &controller{
 		service: service,
 	}
 }
 
-func (c *Controller) FindAll() []models.Video {
+func (c *controller) FindAll() []models.Video {
 	return c.service.FindAll()
 }
 
-func (c *Controller) Save(context *gin.Context) models.Video {
+func (c *controller) Save(context *gin.Context) models.Video {
 	var video models.Video
 	context.BindJSON(&video)
 	c.service.Save(video)
 	return video
 }
 
-func (c *Controller) ShowAll(context *gin.Context) {
+func (c *controller) ShowAll(context *gin.Context) {
 	videos := c.service.FindAll()
 	data := gin.H{
 		"title":  "Video Page",
