@@ -17,6 +17,7 @@ type jwtCustomClaims struct {
 	Admin bool   `json:"admin"`
 	jwt.StandardClaims
 }
+
 type jwtService struct {
 	secretKey string
 	issuer    string

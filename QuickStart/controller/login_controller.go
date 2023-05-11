@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/keval-indoriya-simform/GIN/QuickStart/service"
 )
@@ -42,7 +41,6 @@ func (controller *loginController) Login(context *gin.Context) string {
 		return ""
 	}
 	isAuthenticated := controller.loginService.Login(credential.Username, credential.Password)
-	fmt.Println(isAuthenticated)
 	if isAuthenticated {
 		return controller.jwtService.GenerateToken(credential.Username, true)
 	}

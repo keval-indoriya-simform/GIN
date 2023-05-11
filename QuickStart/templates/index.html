@@ -2,17 +2,17 @@
 
 <div class="album py-4 bg-light">
     <div class="container">
-        <div class="row">
+        <div class="row justify-content-center">
             {{range .videos}}
-            <div class="col-md4">
-                <div class="card mb-4 shadow-sm">
-                    <dic class="card-body">
+            <div class="col-xl-4 col-md-8">
+                <div  class="card mb-2 shadow-sm text-center">
+                    <div class="card-body">
                         <iframe width="300" height="200" src="{{.URL}}"></iframe>
                         <p class="card-text">
                             <h4>{{.Title}}</h4>
                             <p>{{.Description}}</p>
                         </p>
-                    </dic>
+                    </div>
                 </div>
             </div>
             {{end}}

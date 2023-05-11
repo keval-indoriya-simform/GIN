@@ -2,6 +2,7 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/go-playground/validator/v10"
 	"github.com/keval-indoriya-simform/GIN/QuickStart/models"
 	"github.com/keval-indoriya-simform/GIN/QuickStart/service"
 	"net/http"
@@ -29,7 +30,16 @@ func (c *controller) FindAll() []models.Video {
 
 func (c *controller) Save(context *gin.Context) models.Video {
 	var video models.Video
-	context.BindJSON(&video)
+	err := context.BindJSON(&video)
+	if err != nil {
+		panic(err)
+	}
+	validate := validator.New()
+	err = validate.Struct(&video)
+	if err != nil {
+		panic(err)
+	}
+
 	c.service.Save(video)
 	return video
 }

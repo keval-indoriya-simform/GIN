@@ -1,7 +1,6 @@
 package middelware
 
 import (
-	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	"github.com/keval-indoriya-simform/GIN/QuickStart/service"
 	"log"
@@ -17,12 +16,12 @@ func AuthorizeJWT() gin.HandlerFunc {
 		token, err := service.NewJWTService().ValidateToken(tokenString)
 
 		if token.Valid {
-			claims := token.Claims.(jwt.MapClaims)
-			log.Println("Claims[Name]", claims["name"])
-			log.Println("Claims[Admin]", claims["admin"])
-			log.Println("Claims[Issuer]", claims["iss"])
-			log.Println("Claims[IssuedAt]", claims["iat"])
-			log.Println("Claims[ExpiresAt]", claims["exp"])
+			//claims := token.Claims.(jwt.MapClaims)
+			//log.Println("Claims[Name]", claims["name"])
+			//log.Println("Claims[Admin]", claims["admin"])
+			//log.Println("Claims[Issuer]", claims["iss"])
+			//log.Println("Claims[IssuedAt]", claims["iat"])
+			//log.Println("Claims[ExpiresAt]", claims["exp"])
 		} else {
 			log.Println(err)
 			context.AbortWithStatus(http.StatusForbidden)
