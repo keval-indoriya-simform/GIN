@@ -18,7 +18,7 @@ var (
 
 func init() {
 
-	Server.Static("/css", "QuickStart/templates/css")
+	//Server.Static("/css", "QuickStart/templates/css")
 	Server.LoadHTMLGlob("templates/*.html")
 
 	Server.POST("/login", func(context *gin.Context) {

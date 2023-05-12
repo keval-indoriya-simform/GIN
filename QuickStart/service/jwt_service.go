@@ -2,7 +2,7 @@ package service
 
 import (
 	"fmt"
-	"github.com/dgrijalva/jwt-go"
+	"github.com/golang-jwt/jwt/v5"
 	"os"
 	"time"
 )
@@ -15,7 +15,7 @@ type JWTService interface {
 type jwtCustomClaims struct {
 	Name  string `json:"name"`
 	Admin bool   `json:"admin"`
-	jwt.StandardClaims
+	jwt.RegisteredClaims
 }
 
 type jwtService struct {
@@ -42,9 +42,9 @@ func (jwtSrv jwtService) GenerateToken(username string, admin bool) string {
 	claims := &jwtCustomClaims{
 		username,
 		admin,
-		jwt.StandardClaims{
-			ExpiresAt: time.Now().Add(time.Hour * 72).Unix(),
-			IssuedAt:  time.Now().Unix(),
+		jwt.RegisteredClaims{
+			ExpiresAt: &jwt.NumericDate{time.Now().Add(time.Hour * 72)},
+			IssuedAt:  &jwt.NumericDate{time.Now()},
 			Issuer:    jwtSrv.issuer,
 		},
 	}
