@@ -28,7 +28,7 @@ type Credential struct {
 	Password string
 }
 
-func NewLoginController(service service.LoginService) LoginController {
+func NewLoginController() LoginController {
 	return &loginController{
 		loginService: loginService,
 		jwtService:   jwtService,

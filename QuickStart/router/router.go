@@ -12,13 +12,10 @@ var (
 	Server                                     = gin.Default()
 	videoService    service.VideoService       = service.New()
 	videoController controller.VideoController = controller.New(videoService)
-	loginService    service.LoginService       = service.NewLoginService()
-	loginController controller.LoginController = controller.NewLoginController(loginService)
+	loginController controller.LoginController = controller.NewLoginController()
 )
 
-func init() {
-
-	//Server.Static("/css", "QuickStart/templates/css")
+func init() { // Server.Static("/css", "QuickStart/templates/css")
 	Server.LoadHTMLGlob("templates/*.html")
 
 	Server.POST("/login", func(context *gin.Context) {
@@ -32,18 +29,12 @@ func init() {
 		}
 	})
 	apiRoutes := Server.Group("/api", middelware.AuthorizeJWT())
-	{
-		apiRoutes.GET("/videos", func(context *gin.Context) {
-			context.JSON(200, videoController.FindAll())
-		})
-
-		apiRoutes.POST("/videos", func(context *gin.Context) {
-			context.JSON(200, videoController.Save(context))
-		})
-	}
-
+	apiRoutes.GET("/videos", func(context *gin.Context) {
+		context.JSON(http.StatusOK, videoController.FindAll())
+	})
+	apiRoutes.POST("/videos", func(context *gin.Context) {
+		context.JSON(http.StatusOK, videoController.Save(context))
+	})
 	viewRoutes := Server.Group("/view")
-	{
-		viewRoutes.GET("/videos", videoController.ShowAll)
-	}
+	viewRoutes.GET("/videos", videoController.ShowAll)
 }

@@ -8,7 +8,7 @@ import (
 func main() {
 	r := gin.Default()
 
-	r.GET("/JSONP?callback=x", func(c *gin.Context) {
+	r.GET("/jsonp", func(c *gin.Context) {
 		data := map[string]interface{}{
 			"foo": "bar",
 		}

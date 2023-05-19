@@ -39,12 +39,13 @@ func getSecretKey() string {
 }
 
 func (jwtSrv jwtService) GenerateToken(username string, admin bool) string {
+	sleepTime := 72
 	claims := &jwtCustomClaims{
 		username,
 		admin,
 		jwt.RegisteredClaims{
-			ExpiresAt: &jwt.NumericDate{time.Now().Add(time.Hour * 72)},
-			IssuedAt:  &jwt.NumericDate{time.Now()},
+			ExpiresAt: &jwt.NumericDate{Time: time.Now().Add(time.Hour * time.Duration(sleepTime))},
+			IssuedAt:  &jwt.NumericDate{Time: time.Now()},
 			Issuer:    jwtSrv.issuer,
 		},
 	}
@@ -61,7 +62,7 @@ func (jwtSrv jwtService) GenerateToken(username string, admin bool) string {
 func (jwtSrv jwtService) ValidateToken(tokenString string) (*jwt.Token, error) {
 	return jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-			return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
+			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 		}
 		return []byte(jwtSrv.secretKey), nil
 	})

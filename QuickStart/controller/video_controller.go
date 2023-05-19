@@ -18,9 +18,9 @@ type controller struct {
 	service service.VideoService
 }
 
-func New(service service.VideoService) VideoController {
+func New(serv service.VideoService) VideoController {
 	return &controller{
-		service: service,
+		service: serv,
 	}
 }
 
