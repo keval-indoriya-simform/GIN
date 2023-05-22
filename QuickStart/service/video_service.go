@@ -16,9 +16,9 @@ func New() VideoService {
 }
 
 func (service *videoService) Save(video models.Video) models.Video {
-	service.videos = append(service.videos, video)
+	models.InsertVideoData(&video)
 	return video
 }
 func (service *videoService) FindAll() []models.Video {
-	return service.videos
+	return models.GetAllVideo()
 }
